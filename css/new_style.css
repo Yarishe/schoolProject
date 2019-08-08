@@ -6,10 +6,6 @@
     display: none !important;
 }
 
-.hide {
-    display: none !important;
-}
-
 .show {
     display: block;
 }
@@ -35,7 +31,7 @@ main {
     font-size: 30px;
 }
 
-/* Придумать как центрировать текст по вертикали !!!! */
+/* Center ::after's content vertically ! */
 #returnBtn::after { 
     content: "Назад";
     font-size: 25px;
@@ -47,15 +43,16 @@ main {
     opacity: 1;
 }
 
-/* Экраны */
+/* ---- Screens ---- */
 .screen {
     width: 1000px;
     height: 700px;
     margin: 0 auto;
 }
 
+/* PC sideview */
 #PC {
-   border: 5px solid black;
+   border: 5px solid #000;
    display: flex;
    background-color: #eee;
 }
@@ -70,9 +67,30 @@ main {
     height: 100%;
 }
 
-/* Детали */
+/* Motherboard */
+#motherBoard-detailed {
+    border: 5px solid #000;
+    transform: skew(-30deg);
+    display: flex;
+    flex-direction: column;
+    background-color: #364d36;
+}
 
-/* Стоит ли делать так ??? 🤔🤔*/
+.top-side {
+    width: 80%;
+    height: 60%;
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-side {
+    width: 60%;
+    height: 40%;
+    align-self: center;
+}
+
+/* ---- Devices ---- */
 .device {
     color: #fff;
     font-size: 40px;
@@ -83,9 +101,10 @@ main {
 }
 
 .device:hover {
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
+/* Is it good idea to select blocks like that ? */
 .device[data-name="motherBoard"] {
     width: 100%;
     height: 70%;
@@ -102,4 +121,151 @@ main {
     width: 100%;
     height: 100%;
     background-color: #37474F;
+}
+
+/* ================================== */
+
+.CPU-wrapper {
+    width: 20%;
+    height: 25%;
+    align-self: center;
+}
+
+.device[data-name="CPU"] {
+    width: 100%;
+    height: 100%;
+    background-color: #292929;
+    font-size: 25px;
+}
+
+.device[data-name="cooler"] {
+    width: 100%;
+    height: 100%;
+    transform: translateY(-100%);
+    background-color: #9c9898;
+    font-size: 25px;
+    transition: 0.2s all;
+}
+
+.cooler-moved {
+    transform: translateY(-210%) !important;
+
+    -webkit-box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
+    -moz-box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
+    box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
+}
+
+.device[data-name="RAM"] {
+    width: 20%;
+    height: 75%;
+    align-self: center;
+    background-color: #181717;
+    font-size: 25px;
+}
+
+.device[data-name="RAM"] span {
+    transform: rotate(-90deg);
+}
+
+.device[data-name="GPU"] {
+    width: 70%;
+    height: 15%;
+    background-color: #686666;
+    font-size: 25px;
+}
+
+/* ================================== */
+.note {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.ds-wrapper {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ds-wrapper .device {
+    width: 30%;
+    height: 70%;
+    background-color: #686666;
+}
+
+/* ---- Info window ---- */
+#infoWindow {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    background-color: #ebebeb;
+    left: 10px;
+    top: 10px;
+}
+
+.iw-wrapper {
+    padding: 0px 7px 7px 7px;
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+}
+
+.top-section {
+    display: flex;
+}
+
+#title {
+    display: block;
+    width: 70%;
+    font-size: 30px;
+    border-bottom: 2px solid #000;
+}
+
+#windowCloseBtn {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 10px;
+    left: 25%;
+    color: #8b8b8b;
+}
+
+#windowCloseBtn:hover {
+    color: #000;
+}
+
+.mid-section {
+    font-size: 17px;
+}
+
+#descr {
+    display: block;
+    margin-top: 10px;
+}
+
+#url {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.btn {
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(0, 110, 255);
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: rgb(0, 110, 255);
+    color: white;
+}
+
+.btn:active {
+    background-color: rgb(1, 94, 216);  
 }
