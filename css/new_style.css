@@ -17,29 +17,37 @@ main {
     justify-content: space-between;
 }
 
-#returnBtn {
+.rb-wrapper {
     width: 150px;
+    display: flex;
+    padding-top: 10px;
 }
 
-#returnBtn svg {
+#returnBtn {
     width: 40px;
     height: 40px; 
     text-align: center;
     margin-right: 10px;
-    margin-top: 10px;
-    color: rgb(110, 110, 110);
+    color: #6e6e6e;
     font-size: 30px;
+    cursor: pointer;
 }
 
-/* Center ::after's content vertically ! */
-#returnBtn::after { 
-    content: "Назад";
+.rb-title { 
     font-size: 25px;
     transition: 0.25s all;
+    transition: 0s display;
     opacity: 0;
+    display: flex;
+    align-items: center;
+    cursor: default;
 }
 
-#returnBtn:hover::after {
+#returnBtn:hover {
+    color: #000;
+}
+
+#returnBtn:hover ~ .rb-title {
     opacity: 1;
 }
 
@@ -70,7 +78,6 @@ main {
 /* Motherboard */
 #motherBoard-detailed {
     border: 5px solid #000;
-    transform: skew(-30deg);
     display: flex;
     flex-direction: column;
     background-color: #364d36;
@@ -88,6 +95,7 @@ main {
     width: 60%;
     height: 40%;
     align-self: center;
+    display: flex;
 }
 
 /* ---- Devices ---- */
@@ -127,8 +135,8 @@ main {
 
 .CPU-wrapper {
     width: 20%;
-    height: 25%;
-    align-self: center;
+    height: 30%;
+    align-self: flex-end;
 }
 
 .device[data-name="CPU"] {
@@ -147,7 +155,7 @@ main {
     transition: 0.2s all;
 }
 
-.cooler-moved {
+.remove {
     transform: translateY(-210%) !important;
 
     -webkit-box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
@@ -172,6 +180,7 @@ main {
     height: 15%;
     background-color: #686666;
     font-size: 25px;
+    align-self: center;
 }
 
 /* ================================== */
@@ -196,19 +205,51 @@ main {
 }
 
 /* ---- Info window ---- */
+.iw-outerWrapper {
+    width: 1000px;
+    height: 700px;
+    margin: 0 auto;
+    transform: translateY(-100.7%);
+    pointer-events: none;
+}
+
 #infoWindow {
     width: 500px;
     height: auto;
-    position: absolute;
-    background-color: #ebebeb;
-    left: 10px;
-    top: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    pointer-events: all;
 }
 
-.iw-wrapper {
+.pointerAtBottom {
+    flex-direction: column-reverse !important;
+}
+
+.pointerReversed {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+#bubblePointer-top {
+    display: block;
+}
+
+#iw-innerWrapper {
     padding: 0px 7px 7px 7px;
     border-left: 3px solid #000;
     border-right: 3px solid #000;
+    background-color: #fff;
+}
+
+.topBorder {
+    border-top: 3px solid #000;
+}
+
+.bottomBorder {
+    border-bottom: 3px solid #000;
 }
 
 .top-section {
@@ -229,6 +270,7 @@ main {
     top: 10px;
     left: 25%;
     color: #8b8b8b;
+    cursor: pointer;
 }
 
 #windowCloseBtn:hover {
@@ -259,6 +301,7 @@ main {
     border-radius: 5px;
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .btn:hover {
