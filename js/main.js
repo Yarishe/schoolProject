@@ -16,11 +16,14 @@ const
         removeBtn: document.getElementById('removeBtn'),
         closeBtn: document.getElementById('windowCloseBtn'),
 
+        imageWrapper: document.getElementById('iw-imageWrapper'),
+        imageBtn: document.getElementById('imageBtn'),
+
         setPosition: function(cords) {
             let
                 left = cords[0],
                 top = cords[1];
-            this.elem.setAttribute('style', 'left: ' + left + '% ; top: ' + top + '% ;');
+            this.elem.setAttribute('style', 'left: ' + left + '%; top: ' + top + '%;');
         },
 
         setBorder: function(pointerPos) {
@@ -147,6 +150,11 @@ infWindow.removeBtn.addEventListener('click', function() {
         }
 })
 
+infWindow.imageBtn.addEventListener('click', function() {
+    infWindow.imageBtn.classList.toggle('ib-close');
+    infWindow.imageWrapper.classList.toggle('imageActive');
+});
+
 //Info window generator--------
 function genInfWindow (currentDevice) {
     let
@@ -221,7 +229,8 @@ const
             remove: false,
             infWindowCords: [50, 66],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'left'
+            bubblePointerHeading: 'left',
+            imgSrc: ''
         },
 
         powerSupply: {
@@ -232,18 +241,21 @@ const
             remove: false,
             infWindowCords: [18, 35],
             bubblePointerPosition: 'bottom',
-            bubblePointerHeading: 'left'
+            bubblePointerHeading: 'left',
+            imgSrc: ''
         },
 
+        //====!!!! ПЕРЕДЕЛАТЬ ТЕКСТ, тут могут стоять не только устр-ва связанные с памятью !!!====
         dataStorage: {
-            title: 'Запоминающие устройства',
-            descr: 'Запомина́ющее устро́йство — устройство, предназначенное для записи и хранения данных. В основе работы запоминающего устройства может лежать любой физический эффект, обеспечивающий приведение системы к двум или более устойчивым состояниям. Устройство, реализующее компьютерную память.',
+            title: 'Полки (я хз как назвать)',
+            descr: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur illum sit non maiores corrupti. Commodi animi corrupti, assumenda numquam beatae, obcaecati quis rem illo neque eum maxime expedita recusandae dicta?',
             url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B5%D0%B5_%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE',
             detail: true,
             remove: false,
             infWindowCords: [31, 54],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'right' 
+            bubblePointerHeading: 'right',
+            imgSrc: ''
         },
 
         GPU: {
@@ -254,7 +266,8 @@ const
             remove: false,
             infWindowCords: [52, 38],
             bubblePointerPosition: 'bottom',
-            bubblePointerHeading: 'left' 
+            bubblePointerHeading: 'left',
+            imgSrc: ''
         },
 
         CPU: {
@@ -265,7 +278,8 @@ const
             remove: false,
             infWindowCords: [47, 49],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'left' 
+            bubblePointerHeading: 'left',
+            imgSrc: '' 
         },
 
         cooler: {
@@ -277,7 +291,8 @@ const
             infWindowCords: [46, 2],
             infWindowCordsForRemoved: [46, -17],
             bubblePointerPosition: 'bottom',
-            bubblePointerHeading: 'left' 
+            bubblePointerHeading: 'left',
+            imgSrc: '' 
         },
 
         RAM: {
@@ -288,7 +303,8 @@ const
             remove: false,
             infWindowCords: [29, 49],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'right' 
+            bubblePointerHeading: 'right',
+            imgSrc: '' 
         },
 
         HDD: {
@@ -299,7 +315,8 @@ const
             remove: false,
             infWindowCords: [29, 62],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'left' 
+            bubblePointerHeading: 'left',
+            imgSrc: '' 
         },
 
         drive: {
@@ -310,7 +327,8 @@ const
             remove: false,
             infWindowCords: [59, 67],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'left' 
+            bubblePointerHeading: 'left',
+            imgSrc: '' 
         },
 
         SSD: {
@@ -321,6 +339,7 @@ const
             remove: false,
             infWindowCords: [21, 64],
             bubblePointerPosition: 'top',
-            bubblePointerHeading: 'right' 
+            bubblePointerHeading: 'right',
+            imgSrc: ''
         }
     };

@@ -10,6 +10,11 @@
     display: block;
 }
 
+body {
+    height: 90vh;
+    overflow: hidden;
+}
+
 main {
     height: 90vh;
     display: flex;
@@ -205,7 +210,7 @@ main {
 }
 
 /* ---- Info window ---- */
-.iw-outerWrapper {
+#iw-outerWrapper {
     width: 1000px;
     height: 700px;
     margin: 0 auto;
@@ -238,10 +243,15 @@ main {
 }
 
 #iw-innerWrapper {
-    padding: 0px 7px 7px 7px;
+    padding: 0 7px;
     border-left: 3px solid #000;
     border-right: 3px solid #000;
     background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
 }
 
 .topBorder {
@@ -291,6 +301,11 @@ main {
     margin-bottom: 15px;
 }
 
+.bottom-section {
+    margin-bottom: 25px;
+    position: relative;
+}
+
 .btn {
     width: 150px;
     height: 30px;
@@ -312,3 +327,41 @@ main {
 .btn:active {
     background-color: rgb(1, 94, 216);  
 }
+
+#iw-imageWrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 100%;
+    transition: 0.25s all;
+    z-index: 3;
+    display: flex;
+}
+
+.imageActive {
+    right: 20px !important;
+}
+
+.ib-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #c2c2c2;
+}
+
+#imageBtn {
+    height: 20px;
+    width: 20px;
+    color: #6e6e6e;
+    cursor: pointer;
+    transform: rotate(180deg);
+    transition: 0.25s all;
+}
+
+.ib-close {
+    transform: rotate(0deg) !important;
+}
+
+#imageBtn:hover {
+    color: #000;
+}
+
