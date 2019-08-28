@@ -1,7 +1,10 @@
 const
     mainPC = document.getElementById('PC'),
     device = document.getElementsByClassName('device'),
-    returnBtn = document.getElementById('returnBtn'),
+    returnBtn = {
+        elem: document.getElementById('returnBtn'),
+        title: document.getElementById('rb-title')
+    }
 
     infWindow = {
         elem: document.getElementById('infoWindow'),
@@ -16,8 +19,7 @@ const
         removeBtn: document.getElementById('removeBtn'),
         closeBtn: document.getElementById('windowCloseBtn'),
 
-        imageWrapper: document.getElementById('iw-imageWrapper'),
-        imageBtn: document.getElementById('imageBtn'),
+        image: document.getElementById('smallImage'),
 
         setPosition: function(cords) {
             let
@@ -26,15 +28,8 @@ const
             this.elem.setAttribute('style', 'left: ' + left + '%; top: ' + top + '%;');
         },
 
-        setBorder: function(pointerPos) {
-            if (pointerPos != 'top') {
-                this.wrapper.classList.remove('bottomBorder');
-                this.wrapper.classList.add('topBorder');
-            }
-                else if (pointerPos != 'bottom') {
-                    this.wrapper.classList.remove('topBorder');
-                    this.wrapper.classList.add('bottomBorder');
-                }
+        setImage: function (src) {
+            //nothing until I find pictures
         }
     },
 
@@ -47,28 +42,33 @@ const
         draw: function(pos) {
             let
                 ctx = this.context(),
-                width = 500,
                 height = 50;
 
             ctx.lineWidth = 3;
-            ctx.fillStyle = '#e0e0e0';
+            ctx.fillStyle = '#fff';
 
             if (pos == 'top') {
                 ctx.beginPath();
-                ctx.moveTo(1, height);
-                ctx.lineTo(1, 3);
-                ctx.lineTo(width + 15, height);
+                ctx.moveTo(110, height - 3);
+                ctx.lineTo(100, 3);
+                ctx.lineTo(180, height - 3);
                 ctx.fill();
                 ctx.stroke();
+
+                //things that hide gray line
+                ctx.fillRect(111, height - 3, 67, 3);
+                ctx.fillRect(178, height - 2, 1, 2);
+                ctx.fillRect(178, height - 1, 1, 1);
             }
 
             if (pos == 'bottom') {
                 ctx.beginPath();
-                ctx.moveTo(1, 0);
-                ctx.lineTo(1, height - 3);
-                ctx.lineTo(width + 15, 0);
+                ctx.moveTo(110, 3);
+                ctx.lineTo(100, height - 3);
+                ctx.lineTo(180, 3);
                 ctx.fill();
                 ctx.stroke();
+                ctx.fillRect(111, 0, 66, 3);
             }
         },
 
@@ -84,10 +84,12 @@ const
         setPosition: function(pos) {
             if (pos == 'top') {
                 infWindow.elem.classList.remove('pointerAtBottom');
+                bubblePointer.elem.setAttribute('style', 'top: 4px');
             }
 
             if (pos == 'bottom') {
                 infWindow.elem.classList.add('pointerAtBottom');
+                bubblePointer.elem.setAttribute('style', 'top: -5px');
             }
         },
 
@@ -100,15 +102,25 @@ const
                 this.elem.classList.add('pointerReversed');
             }
         }
-    };
+    },
 
+    bigImage = {
+        elem: document.getElementById('bigImage'),
+        outerWrapper: document.getElementById('ib-outerWrapper'),
+        closeBtn: document.getElementById('bigImageCloseBtn'),
+
+        setImage: function (src) {
+            //nothing until I find pictures
+        }
+    };
 var
     currentDetailElem;
 
 //Event listeners--------
-returnBtn.addEventListener('click', function(){
+returnBtn.elem.addEventListener('click', function(){
     show(mainPC);
-    hide(returnBtn);
+    hide(returnBtn.elem);
+    hide(returnBtn.title);
     hide(currentDetailElem);
     clearInfWindow();
 })
@@ -130,7 +142,10 @@ infWindow.detailBtn.addEventListener('click', function(){
     
     show(currentDetailElem);
     hide(mainPC);
-    show(returnBtn);
+
+    show(returnBtn.elem);
+    show(returnBtn.title);
+    
     clearInfWindow();
 })
 
@@ -150,9 +165,12 @@ infWindow.removeBtn.addEventListener('click', function() {
         }
 })
 
-infWindow.imageBtn.addEventListener('click', function() {
-    infWindow.imageBtn.classList.toggle('ib-close');
-    infWindow.imageWrapper.classList.toggle('imageActive');
+infWindow.image.addEventListener('click', function() {
+    show(bigImage.outerWrapper);
+});
+
+bigImage.closeBtn.addEventListener('click', function() {
+    hide(bigImage.outerWrapper);
 });
 
 //Info window generator--------
@@ -173,17 +191,22 @@ function genInfWindow (currentDevice) {
     bubblePointer.draw(info.bubblePointerPosition);
     bubblePointer.setHeading(info.bubblePointerHeading);
 
-    infWindow.setPosition(info.infWindowCords);
-    infWindow.setBorder(info.bubblePointerPosition); 
+    infWindow.setPosition(info.infWindowCords); 
 
     if (info.detail) {
         show(infWindow.detailBtn);
     }
 
+    //Придумать как сделать лучше
     if (info.remove) {
         show(infWindow.removeBtn);
-        if (currentDevice.classList.contains('remove')) {
-            infWindow.setPosition(info.infWindowCordsForRemoved);
+        if (currentDevice.classList.contains('remove')) {                
+            bubblePointer.setPosition(info.forRemoved.bubblePointerPosition);
+            bubblePointer.clear();
+            bubblePointer.draw(info.forRemoved.bubblePointerPosition);
+            bubblePointer.setHeading(info.forRemoved.bubblePointerHeading);
+
+            infWindow.setPosition(info.forRemoved.infWindowCords); 
         }
     }
 }
@@ -252,7 +275,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B5%D0%B5_%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE',
             detail: true,
             remove: false,
-            infWindowCords: [31, 54],
+            infWindowCords: [31, 60],
             bubblePointerPosition: 'top',
             bubblePointerHeading: 'right',
             imgSrc: ''
@@ -264,7 +287,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B0',
             detail: false,
             remove: false,
-            infWindowCords: [52, 38],
+            infWindowCords: [49, 32],
             bubblePointerPosition: 'bottom',
             bubblePointerHeading: 'left',
             imgSrc: ''
@@ -276,8 +299,8 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D1%80',
             detail: false,
             remove: false,
-            infWindowCords: [47, 49],
-            bubblePointerPosition: 'top',
+            infWindowCords: [36, -7],
+            bubblePointerPosition: 'bottom',
             bubblePointerHeading: 'left',
             imgSrc: '' 
         },
@@ -288,10 +311,16 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%BB%D0%B5%D1%80_(%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D0%BE%D1%85%D0%BB%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F)',
             detail: false,
             remove: true,
-            infWindowCords: [46, 2],
-            infWindowCordsForRemoved: [46, -17],
+            infWindowCords: [36, 0],
             bubblePointerPosition: 'bottom',
             bubblePointerHeading: 'left',
+
+            forRemoved: {
+                infWindowCords: [36, 36],
+                bubblePointerPosition: 'top',
+                bubblePointerHeading: 'left', 
+            },
+
             imgSrc: '' 
         },
 
@@ -301,7 +330,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C',
             detail: false,
             remove: false,
-            infWindowCords: [29, 49],
+            infWindowCords: [34, 48],
             bubblePointerPosition: 'top',
             bubblePointerHeading: 'right',
             imgSrc: '' 
@@ -313,7 +342,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%96%D1%91%D1%81%D1%82%D0%BA%D0%B8%D0%B9_%D0%B4%D0%B8%D1%81%D0%BA',
             detail: false,
             remove: false,
-            infWindowCords: [29, 62],
+            infWindowCords: [19, 62],
             bubblePointerPosition: 'top',
             bubblePointerHeading: 'left',
             imgSrc: '' 
@@ -325,7 +354,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4',
             detail: false,
             remove: false,
-            infWindowCords: [59, 67],
+            infWindowCords: [52, 67],
             bubblePointerPosition: 'top',
             bubblePointerHeading: 'left',
             imgSrc: '' 
@@ -337,7 +366,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%A2%D0%B2%D0%B5%D1%80%D0%B4%D0%BE%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C',
             detail: false,
             remove: false,
-            infWindowCords: [21, 64],
+            infWindowCords: [32, 57],
             bubblePointerPosition: 'top',
             bubblePointerHeading: 'right',
             imgSrc: ''
