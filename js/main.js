@@ -11,6 +11,31 @@ Object.prototype.setInfo = function(info) {
     // this.picture.setAttribute('src', info.img);
     this.descr.innerHTML = info.descr;
     this.url.setAttribute('href', info.url);
+
+    if (info.detail) {
+        this.detailBtn.show();
+        this.detailBtn.setAttribute('href', info.detailedView);
+    }
+
+    if (info.removable) {
+        this.removeBtn.show();
+        removeDevice = info.remove;
+    }
+}
+
+Object.prototype.clearInfo = function() {
+    this.detailBtn.hide();
+    this.detailBtn.removeAttribute('href');
+    this.removeBtn.hide();
+    removeDevice = undefined;
+
+    //is it necessary ?
+    this.title.innerHTML = 'Нет информации';
+    // this.picture.removeAttribute('src');
+    this.descr.innerHTML = 'Нет информации';
+    this.url.removeAttribute('href');
+
+    placePointerAtTop(); //============================
 }
 
 Object.prototype.setPosition = function(cords) {
@@ -18,7 +43,6 @@ Object.prototype.setPosition = function(cords) {
         left = cords[0],
         top = cords[1];
         this.setAttribute('style', 'left: ' + left + 'px; top: ' + top + 'px;');
-
 }
 
 const
@@ -41,17 +65,81 @@ const
         url: document.getElementById('url'),
     };
 
+var
+    removeDevice; //A current 'remove' method
+
+//do it in another way============================
+function placePointerAtTop() {
+    infWindow.main.classList.remove('pointerAtBottom');
+}
+
+function placePointerAtBottom() {
+    infWindow.main.classList.add('pointerAtBottom');
+}
+//============================
+
 function genInfWindow(currentDevice, event) {
+    infWindow.clearInfo();
+    
     let
         name = currentDevice.dataset.name,
         mousePos = [
-            event.clientX - 50,
-            event.clientY + 50
-        ];
+            event.clientX,
+            event.clientY
+        ],
+        windowPos;
 
     infWindow.setInfo(deviceList[name]);
-    infWindow.main.setPosition(mousePos);
     infWindow.main.show();
+    windowPos = getReadjustedWindowCords(mousePos, infWindow.main.offsetHeight);
+    infWindow.main.setPosition(windowPos);
+}
+
+//is it necessary ?
+function checkForWindowOverflow(cords, infWindowHeight) {
+    const
+        infWindowWidth = infWindow.main.offsetWidth,
+        height = document.documentElement.offsetHeight,
+        width = document.documentElement.offsetWidth;
+    let
+        result = [false, false];
+
+    if (cords[0] + infWindowWidth >= width) {
+        result[0] = true;
+    } 
+
+    if (cords[1] + infWindowHeight >= height) {
+        result[1] = true;
+    }
+
+    return result;
+}
+
+//should I rename it ?
+function getReadjustedWindowCords(cords, infWindowHeight) {
+    const
+        margin = 20,
+        pointerSpace = 30,
+        infWindowWidth = infWindow.main.offsetWidth,
+        //height = document.documentElement.offsetHeight,
+        width = document.documentElement.offsetWidth,
+        hasOverflow = checkForWindowOverflow(cords, infWindowHeight);
+
+    if (hasOverflow[0]) {
+        let
+            diff = infWindowWidth - (width - cords[0]);
+        cords[0] -= diff + margin;
+    } 
+        else {
+            cords[0] -= margin;
+        }
+    
+    if (hasOverflow[1]) {
+        cords[1] -= infWindowHeight - pointerSpace;
+        placePointerAtBottom(); //============================
+    }
+
+    return cords;
 }
 
 for (let i = 0; i < device.length; i++) {
@@ -62,8 +150,12 @@ for (let i = 0; i < device.length; i++) {
 
 infWindow.closeBtn.addEventListener('click', function() {
     infWindow.main.hide();
+    infWindow.clearInfo();
 });
 
+infWindow.removeBtn.addEventListener('click', function() {
+    removeDevice();
+});
 
 //Device info--------------------------------------------
 
@@ -73,7 +165,9 @@ infWindow.closeBtn.addEventListener('click', function() {
 //     url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D1%82%D0%B0%D0%BB%D1%8C', | Ссылка на статью в Интернете о детали,
 //     imgSrc: '', | Картинка-иллюстрация
 //     detail: false, | Есть ли детальный вид (показывать ли соотв. кнопку)
-//     remove: false | Можно ли убрать (показывать ли соотв. кнопку)
+//     detailedView: 'motherboard.html', | ссылка на приближённый вид детали
+//     removable: false, | Можно ли убрать (показывать ли соотв. кнопку)
+//     remove: function() {...} | функция, которая будет выполняться при нажатии кнопки 'убрать'
 // }
 
 const
@@ -84,7 +178,11 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%BB%D0%B0%D1%82%D0%B0',
             imgSrc: '',
             detail: true,
-            remove: false
+            detailedView: 'motherboard.html',
+            removable: true, //врменно
+            remove: function() {
+                alert('Test');
+            }
         },
 
         powerSupply: {
@@ -93,7 +191,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B9_%D0%B1%D0%BB%D0%BE%D0%BA_%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         },
 
         //====!!!! ПЕРЕДЕЛАТЬ ТЕКСТ, тут могут стоять не только устр-ва связанные с памятью !!!====
@@ -103,7 +201,8 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B5%D0%B5_%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE',
             imgSrc: '',
             detail: true,
-            remove: false
+            detailedView: 'dataStorage.html',
+            removable: false
         },
 
         GPU: {
@@ -112,7 +211,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B0',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         },
 
         CPU: {
@@ -121,7 +220,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D1%80',
             imgSrc: '',
             detail: false,
-            remove: false 
+            removable: false 
         },
 
         cooler: {
@@ -130,7 +229,10 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%BB%D0%B5%D1%80_(%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D0%BE%D1%85%D0%BB%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F)',
             imgSrc: '',
             detail: false,
-            remove: true
+            removable: true,
+            remove: function() {
+                alert('Test');
+            }
         },
 
         RAM: {
@@ -139,7 +241,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         },
 
         HDD: {
@@ -148,7 +250,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%96%D1%91%D1%81%D1%82%D0%BA%D0%B8%D0%B9_%D0%B4%D0%B8%D1%81%D0%BA',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         },
 
         drive: {
@@ -157,7 +259,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         },
 
         SSD: {
@@ -166,6 +268,6 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%A2%D0%B2%D0%B5%D1%80%D0%B4%D0%BE%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C',
             imgSrc: '',
             detail: false,
-            remove: false
+            removable: false
         }
     };

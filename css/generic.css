@@ -38,34 +38,32 @@ main {
 }
 
 /* ==== Info Window ==== */
+.pointerAtBottom #infoWindowData {
+    border-bottom: none !important;
+    border-top: 3px solid #000;
+}
+
+.pointerAtBottom {
+    flex-direction: column-reverse !important;
+}
+
 #infoWindow {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+#infoWindowData {
     width: 500px;
     display: flex;
     flex-direction: column;
     height: auto;
-    position: absolute;
     background-color: #fff;
     border: 3px solid #000;
+    border-top: none;
     border-radius: 10px;
     padding: 10px;
-}
-
-.pointerAtTop {
-    border-top: none !important;
-}
-
-.pointerAtBottom {
-    border-bottom: none !important;
-}
-
-/* .pointerAtBottom #pointer {
-    order: 1; 
-} */
-
-#pointer {
-    position: absolute;
-    top: -47px;
-    left: 0;
 }
 
 .infSection {
@@ -139,7 +137,12 @@ main {
     transition: 0.2s all;
 }
 
+#detailBtn {
+    text-decoration: none;
+    color: #000;
+}
+
 .infButton:hover {
-    color: #fff;
+    color: #fff !important;
     background-color: #006eff;
 }
