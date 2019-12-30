@@ -1,22 +1,16 @@
 /* Sizes and positions are temporary */
 
-main {
-    border: 5px solid #000;
-    display: flex;
-    background-color: #eee;
- }
- 
  .left-side {
      width: 70%;
      height: 100%;
  }
  
- .right-side {
+.right-side {
      width: 30%;
      height: 100%;
  }
 
- .device[data-name="motherBoard"] {
+.device[data-name="motherBoard"] {
     width: 100%;
     height: 70%;
     background-color: #364d36;
@@ -32,9 +26,4 @@ main {
     width: 100%;
     height: 100%;
     background-color: #37474F;
-}
-
-#TEST {
-    background-color: #00000017;
-    position: absolute;
 }

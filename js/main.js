@@ -6,77 +6,122 @@ Object.prototype.show = function() {
     this.classList.remove('hide');
 }
 
-Object.prototype.setInfo = function(info) {
-    this.title.innerHTML = info.title;
-    // this.picture.setAttribute('src', info.img);
-    this.descr.innerHTML = info.descr;
-    this.url.setAttribute('href', info.url);
-
-    if (info.detail) {
-        this.detailBtn.show();
-        this.detailBtn.setAttribute('href', info.detailedView);
-    }
-
-    if (info.removable) {
-        this.removeBtn.show();
-        removeDevice = info.remove;
-    }
-}
-
-Object.prototype.clearInfo = function() {
-    this.detailBtn.hide();
-    this.detailBtn.removeAttribute('href');
-    this.removeBtn.hide();
-    removeDevice = undefined;
-
-    //is it necessary ?
-    this.title.innerHTML = 'Нет информации';
-    // this.picture.removeAttribute('src');
-    this.descr.innerHTML = 'Нет информации';
-    this.url.removeAttribute('href');
-
-    placePointerAtTop(); //============================
-}
-
-Object.prototype.setPosition = function(cords) {
-    let
-        left = cords[0],
-        top = cords[1];
-        this.setAttribute('style', 'left: ' + left + 'px; top: ' + top + 'px;');
-}
-
 const
     device = document.getElementsByClassName('device'),
     infWindow = {
         main: document.getElementById('infoWindow'),
+        currentDevice: undefined,
         pointer: {
             canv: document.getElementById('pointer'),
             ctx: function() {
                 return this.canv.getContext('2d');
             },
+            atTop: true,
+            cursorPos: [0, 0],
+            //Is it good idea ??
+            placeAt: {
+                top: function() {
+                    infWindow.main.classList.remove('pointerAtBottom');
+                    infWindow.pointer.atTop = true;
+                },
+
+                bottom: function() {
+                    infWindow.main.classList.add('pointerAtBottom');
+                    infWindow.pointer.atTop = false;
+                }
+            },
+            draw: function() {
+                // const
+                //     canv = this.canv,
+                //     ctx = this.ctx(),
+                //     width = this.canv.offsetWidth,
+                //     height = this.canv.offsetHeight,
+                //     cursorPos = this.cursorPos,
+                //     atTop = this.atTop;
+
+                // ctx.lineWidth = 3;
+                // ctx.fillStyle = 'red';
+                
+                // console.log('2: ' + cursorPos); //==============================================
+
+                // if (atTop) {
+                //     // ctx.beginPath();
+                //     console.log(cursorPos);
+                //     ctx.fillRect(cursorPos[0], cursorPos[1], 10, 10);
+                //     // ctx.lineTo(cursorPos[0] + 10, height);
+                //     // ctx.stroke();
+                //}
+
+                this.clear();
+                const
+                    ctx = this.ctx();
+                ctx.font = "25px Arial";
+                ctx.fillStyle = "#fff";
+                ctx.fillText('Пока не готово :(', 10, 30)
+            },
+
+            clear: function() {
+                const
+                    ctx = this.ctx();
+                ctx.clearRect(0, 0, 520, 50);
+            }
         },
         closeBtn: document.getElementById('infCloseBtn'),
         detailBtn: document.getElementById('detailBtn'),
         removeBtn: document.getElementById('removeBtn'),
 
         title: document.getElementById('title'),
-        picture: document.getElementById('picture'),
+        image: document.getElementById('smallImage'),
         descr: document.getElementById('descr'),
         url: document.getElementById('url'),
-    };
 
-var
-    removeDevice; //A current 'remove' method
+        setInfo: function(info) {
+            this.title.innerHTML = info.title;
+            // this.image.setAttribute('src', info.img);
+            // bigImage.img.setAttribute('src', info.img);
+            this.descr.innerHTML = info.descr;
+            this.url.setAttribute('href', info.url);
+        
+            if (info.detail) {
+                this.detailBtn.show();
+                this.detailBtn.setAttribute('href', info.detailedView);
+            }
+        
+            if (info.removable) {
+                this.removeBtn.show();
+                removeDevice = info.remove;
+            }
+        },
 
-//do it in another way============================
-function placePointerAtTop() {
-    infWindow.main.classList.remove('pointerAtBottom');
-}
+        clearInfo: function() {
+            this.detailBtn.hide();
+            this.detailBtn.removeAttribute('href');
+            this.removeBtn.hide();
+            removeDevice = undefined;
+        
+            //is it necessary ?
+            this.title.innerHTML = 'Нет информации';
+            // this.image.removeAttribute('src');
+            this.descr.innerHTML = 'Нет информации';
+            this.url.removeAttribute('href');
+        
+            this.pointer.placeAt.top(); //==============================================
+        },
 
-function placePointerAtBottom() {
-    infWindow.main.classList.add('pointerAtBottom');
-}
-//============================
+        setPosition: function(cords) {
+            let
+                left = cords[0],
+                top = cords[1];
+                this.main.setAttribute('style', 'left: ' + left + 'px; top: ' + top + 'px;');
+        }
+
+    },
+
+    bigImage = {
+        wrapper: document.getElementById('bgImgWrapper'),
+        img: document.getElementById('bigPicture'),
+        closeBtn: document.getElementById('bgImgCloseBtn')
+    }
 
 function genInfWindow(currentDevice, event) {
     infWindow.clearInfo();
@@ -89,43 +134,27 @@ function genInfWindow(currentDevice, event) {
         ],
         windowPos;
 
+    infWindow.currentDevice = name;
     infWindow.setInfo(deviceList[name]);
     infWindow.main.show();
     windowPos = getReadjustedWindowCords(mousePos, infWindow.main.offsetHeight);
-    infWindow.main.setPosition(windowPos);
+    infWindow.setPosition(windowPos);
+
+    // console.log('1.2: ' + infWindow.pointer.cursorPos); //==============================================
+
+    infWindow.pointer.draw();
 }
 
-//is it necessary ?
-function checkForWindowOverflow(cords, infWindowHeight) {
-    const
-        infWindowWidth = infWindow.main.offsetWidth,
-        height = document.documentElement.offsetHeight,
-        width = document.documentElement.offsetWidth;
-    let
-        result = [false, false];
-
-    if (cords[0] + infWindowWidth >= width) {
-        result[0] = true;
-    } 
-
-    if (cords[1] + infWindowHeight >= height) {
-        result[1] = true;
-    }
-
-    return result;
-}
-
-//should I rename it ?
+//rename this
 function getReadjustedWindowCords(cords, infWindowHeight) {
     const
         margin = 20,
-        pointerSpace = 30,
+        //pointerSpace = 50, //==============================================
         infWindowWidth = infWindow.main.offsetWidth,
-        //height = document.documentElement.offsetHeight,
-        width = document.documentElement.offsetWidth,
-        hasOverflow = checkForWindowOverflow(cords, infWindowHeight);
+        height = document.documentElement.offsetHeight,
+        width = document.documentElement.offsetWidth;
 
-    if (hasOverflow[0]) {
+    if (cords[0] + infWindowWidth >= width) {
         let
             diff = infWindowWidth - (width - cords[0]);
         cords[0] -= diff + margin;
@@ -134,9 +163,9 @@ function getReadjustedWindowCords(cords, infWindowHeight) {
             cords[0] -= margin;
         }
     
-    if (hasOverflow[1]) {
-        cords[1] -= infWindowHeight - pointerSpace;
-        placePointerAtBottom(); //============================
+    if (cords[1] + infWindowHeight >= height) {
+        cords[1] -= infWindowHeight;
+        infWindow.pointer.placeAt.bottom();
     }
 
     return cords;
@@ -148,14 +177,28 @@ for (let i = 0; i < device.length; i++) {
     })
 }
 
+infWindow.pointer.canv.addEventListener('mouseover', function(e) {
+    infWindow.pointer.cursorPos = [e.offsetX, e.offsetY];
+    // console.log('1: ' + [e.offsetX, e.offsetY]); //==============================================
+})
 infWindow.closeBtn.addEventListener('click', function() {
     infWindow.main.hide();
     infWindow.clearInfo();
-});
+})
+
+infWindow.image.addEventListener('click', function() {
+    infWindow.main.hide();
+    bigImage.wrapper.show();
+})
 
 infWindow.removeBtn.addEventListener('click', function() {
-    removeDevice();
-});
+    deviceList[infWindow.currentDevice].remove();
+})
+
+bigImage.closeBtn.addEventListener('click', function() {
+    bigImage.wrapper.hide();
+    infWindow.main.show();
+})
 
 //Device info--------------------------------------------
 
@@ -179,10 +222,7 @@ const
             imgSrc: '',
             detail: true,
             detailedView: 'motherboard.html',
-            removable: true, //врменно
-            remove: function() {
-                alert('Test');
-            }
+            removable: false
         },
 
         powerSupply: {
@@ -231,7 +271,10 @@ const
             detail: false,
             removable: true,
             remove: function() {
-                alert('Test');
+                let
+                    cooler = document.querySelector('[data-name="cooler"]');
+                cooler.classList.toggle('cooler-removed');
+                infWindow.main.hide();
             }
         },
 
