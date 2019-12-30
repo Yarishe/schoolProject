@@ -1,0 +1,188 @@
+* {
+    font-family: 'Rubik', sans-serif;
+    font-weight: lighter;
+}
+
+.hide {
+    display: none !important;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+}
+
+#returnNote {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    color: #9b9b9b;
+}
+
+main {
+    width: 1000px;
+    height: 700px;
+    margin: 0 auto;
+    display: flex;
+    border: 5px solid #000;
+    background-color: #eee;
+}
+
+.device {
+    color: #fff;
+    font-size: 40px;
+    transition: 0.2s opacity;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.device:hover {
+    opacity: 0.95;
+}
+
+.closeBtn {
+    color: #8b8b8b;
+    cursor: pointer;
+}
+
+.closeBtn:hover {
+    color: #747474;
+}
+
+.closeBtn:active {
+    color: #636262;
+}
+
+/* ==== Info Window ==== */
+.pointerAtBottom #infoWindowData {
+    border-bottom: none !important;
+    border-top: 3px solid #000;
+}
+
+.pointerAtBottom {
+    flex-direction: column-reverse !important;
+}
+
+#infoWindow {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+#pointer {
+    background-color: #0000006b;
+}
+
+#infoWindowData {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    background-color: #fff;
+    border: 3px solid #000;
+    border-top: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.infSection {
+    display: flex;
+    height: auto;
+}
+
+#infTop {
+    justify-content: space-between;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+#title {
+    border-bottom: 2px solid #000;
+}
+
+#infCloseBtn {
+    width: 20px;
+    height: 20px;
+}
+
+#infMid {
+    /* background-color: #b2b3fc; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+#smallImage {
+    width: 110px;
+    height: 110px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: 0.2s all;
+    cursor: pointer;
+    user-select: none;
+}
+
+#smallImage:hover {
+    transform: scale(1.05, 1.05);
+}
+
+#descr {
+    width: 370px;
+    font-size: 20px;
+}
+
+.infButton {
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #006eff;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.2s all;
+}
+
+#detailBtn {
+    text-decoration: none;
+    color: #000;
+}
+
+.infButton:hover {
+    color: #fff !important;
+    background-color: #006eff;
+}
+
+/* ==== Big image ==== */
+#bgImgWrapper {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background-color: #00000044;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+#bgImgCloseBtn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 0;
+}
+
+#bigImage {
+    width: 900px;
+    align-self: center;
+}

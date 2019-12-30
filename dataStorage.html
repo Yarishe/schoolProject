@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/generic.css">
-    <link rel="stylesheet" href="css/pcStyle.css">
+    <link rel="stylesheet" href="css/dsStyle.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,500&display=swap&subset=cyrillic" rel="stylesheet">
     <title>Проект | устройство ПК</title>
 </head>
+
 <body>
     <!-- ==== Big image ==== -->
     <div id="bgImgWrapper" class="hide">
@@ -14,17 +15,16 @@
         <img id="bigImage" src="libs/img/placeHolder.png" alt="">
     </div>
 
-    <main>
-        <div class="left-side">
-            <div class="device" data-name="motherBoard">Материнская плата</div>
-          
-            <div class="device" data-name="powerSupply">Блок питания</div>
-        </div>
+    <span id="returnNote">Используйте кнопку "предыдущая страница" браузера для возврата</span>
 
-        <div class="right-side">
-            <div class="device" data-name="dataStorage">Полки</div>
-        </div>     
-    </main>
+    <span id="idkNote">Пока не знаю как сделать</span>
+    <main>
+        <div class="ds-wrapper">
+            <div id="hardDrive" class="device" data-name="HDD">Жёсткий диск</div>
+            <div id="drive" class="device" data-name="drive">Дисковод</div> <!--Назвал не disc/drive storage что бы не путать с dataStorage-->
+            <div id="SSD" class="device" data-name="SSD">ССД диск</div>
+        </div>
+    </main> 
 
     <!-- ==== Info window ==== -->
     <div class="hide" id="infoWindow">

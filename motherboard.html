@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/generic.css">
-    <link rel="stylesheet" href="css/pcStyle.css">
+    <link rel="stylesheet" href="css/mbStyle.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,500&display=swap&subset=cyrillic" rel="stylesheet">
     <title>Проект | устройство ПК</title>
 </head>
@@ -14,16 +14,23 @@
         <img id="bigImage" src="libs/img/placeHolder.png" alt="">
     </div>
 
+    <span id="returnNote">Используйте кнопку "предыдущая страница" браузера для возврата</span>
+
     <main>
-        <div class="left-side">
-            <div class="device" data-name="motherBoard">Материнская плата</div>
-          
-            <div class="device" data-name="powerSupply">Блок питания</div>
+        <div class="top-side">
+            <div class="CPU-wrapper">
+                <div class="device" data-name="CPU">Процессор</div>
+                <div class="device" data-name="cooler">Кулер</div>
+            </div>
+
+            <div class="device" data-name="RAM">
+                <span>Оперативная память</span>
+            </div>
         </div>
 
-        <div class="right-side">
-            <div class="device" data-name="dataStorage">Полки</div>
-        </div>     
+        <div class="bottom-side">
+            <div class="device" data-name="GPU">Видеокарта</div>
+        </div>
     </main>
 
     <!-- ==== Info window ==== -->
