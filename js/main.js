@@ -17,7 +17,6 @@ const
                 return this.canv.getContext('2d');
             },
             atTop: true,
-            cursorPos: [0, 0],
             //Is it good idea ??
             placeAt: {
                 top: function() {
@@ -30,34 +29,85 @@ const
                     infWindow.pointer.atTop = false;
                 }
             },
-            draw: function() {
-                // const
-                //     canv = this.canv,
-                //     ctx = this.ctx(),
-                //     width = this.canv.offsetWidth,
-                //     height = this.canv.offsetHeight,
-                //     cursorPos = this.cursorPos,
-                //     atTop = this.atTop;
-
-                // ctx.lineWidth = 3;
-                // ctx.fillStyle = 'red';
-                
-                // console.log('2: ' + cursorPos); //==============================================
-
-                // if (atTop) {
-                //     // ctx.beginPath();
-                //     console.log(cursorPos);
-                //     ctx.fillRect(cursorPos[0], cursorPos[1], 10, 10);
-                //     // ctx.lineTo(cursorPos[0] + 10, height);
-                //     // ctx.stroke();
-                //}
-
-                this.clear();
+            draw: function(cursorPos) {
                 const
-                    ctx = this.ctx();
-                ctx.font = "25px Arial";
-                ctx.fillStyle = "#fff";
-                ctx.fillText('Пока не готово :(', 10, 30)
+                    canv = this.canv,
+                    ctx = this.ctx(),
+                    width = this.canv.offsetWidth,
+                    height = this.canv.offsetHeight,
+                    atTop = this.atTop;
+
+                ctx.lineWidth = 3;
+                ctx.fillStyle = '#fff';
+                if (atTop) {
+                    const
+                        point = [
+                            {
+                                x: cursorPos[0],
+                                y: cursorPos[1] + 3
+                            },
+                            {
+                                x: cursorPos[0] + 20,
+                                y: height
+                            },
+                            {
+                                x: cursorPos[0] + 60,
+                                y: height
+                            },
+                        ];
+
+                    ctx.strokeStyle = "#000";
+                    ctx.beginPath();
+                    ctx.moveTo(point[0].x, point[0].y);
+                    ctx.lineTo(point[1].x, point[1].y);
+                    ctx.lineTo(point[2].x, point[2].y);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(point[2].x - 5, point[2].y);
+                    ctx.lineTo(point[1].x + 1, point[1].y);
+                    ctx.stroke();
+                    ctx.fillRect(point[2].x - 5, point[2].y, 1, -1);
+                }
+                
+                else {
+                    const
+                        point = [
+                            {
+                                x: cursorPos[0],
+                                y: cursorPos[1] - 3
+                            },
+                            {
+                                x: cursorPos[0] + 20,
+                                y: 0
+                            },
+                            {
+                                x: cursorPos[0] + 60,
+                                y: 0
+                            },
+                        ];
+
+                    ctx.strokeStyle = "#000";
+                    ctx.beginPath();
+                    ctx.moveTo(point[0].x, point[0].y);
+                    ctx.lineTo(point[1].x, point[1].y);
+                    ctx.lineTo(point[2].x, point[2].y);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(point[2].x - 5, point[2].y);
+                    ctx.lineTo(point[1].x + 1, point[1].y);
+                    ctx.stroke();
+                    ctx.fillRect(point[2].x - 5, point[2].y, 1, 1);
+                }
             },
 
             clear: function() {
@@ -105,6 +155,7 @@ const
             this.descr.innerHTML = 'Нет информации';
             this.url.removeAttribute('href');
         
+            this.pointer.clear();
             this.pointer.placeAt.top(); //==============================================
         },
 
@@ -122,6 +173,9 @@ const
         img: document.getElementById('bigPicture'),
         closeBtn: document.getElementById('bgImgCloseBtn')
     }
+
+var
+    cursorLeft = false;
 
 function genInfWindow(currentDevice, event) {
     infWindow.clearInfo();
@@ -141,8 +195,6 @@ function genInfWindow(currentDevice, event) {
     infWindow.setPosition(windowPos);
 
     // console.log('1.2: ' + infWindow.pointer.cursorPos); //==============================================
-
-    infWindow.pointer.draw();
 }
 
 //rename this
@@ -173,14 +225,22 @@ function getReadjustedWindowCords(cords, infWindowHeight) {
 
 for (let i = 0; i < device.length; i++) {
     device[i].addEventListener('click', function(e) {
+        cursorLeft = false;
         genInfWindow(device[i], e);
     })
 }
 
 infWindow.pointer.canv.addEventListener('mouseover', function(e) {
-    infWindow.pointer.cursorPos = [e.offsetX, e.offsetY];
+    if (!cursorLeft) {
+        infWindow.pointer.draw([e.offsetX, e.offsetY]);
+    }
     // console.log('1: ' + [e.offsetX, e.offsetY]); //==============================================
 })
+
+infWindow.pointer.canv.addEventListener('mouseout', function() {
+    cursorLeft = true;
+})
+
 infWindow.closeBtn.addEventListener('click', function() {
     infWindow.main.hide();
     infWindow.clearInfo();
