@@ -1,0 +1,95 @@
+﻿========== Добавление новой страницы ==========
+
+1. В основную папку добавить HTML файл по шаблону:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/generic.css">
+    <link rel="stylesheet" href="[ССЫЛКА НА CSS ФАЙЛ ДЛЯ ЭТОЙ КОНКРЕТНОЙ СТРАНИЦЫ]">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500&display=swap&subset=cyrillic" rel="stylesheet">
+    <title>Проект | устройство ПК</title>
+</head>
+<body>
+    [ЕСЛИ СТРАНИЦА НЕ ГЛАВНАЯ]
+    <!-- ==== Return button ==== -->
+    <a title="Назад" href="[ССЫЛКА НА HTML ФАЙЛ СТРАНИЦЫ, КОТОРАЯ ДОЛЖНЫ БЫТЬ ПРЕДЫДУЩЕЙ]">
+        <svg id="returnBtn" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg>
+    </a>
+
+    <!-- ==== Big image ==== -->
+    <div id="bgImgWrapper" class="hide">
+        <svg id="bgImgCloseBtn" class="closeBtn" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+        <img id="bigImage" src="libs/img/placeHolder.png" alt="">
+    </div>
+
+    <main>
+        [ОСНОВНАЯ РАЗМЕТКА, СМ. 2-Ю ЧАСТЬ ИНСТРУКЦИИ] 
+    </main>
+
+    <!-- ==== Info window ==== -->
+    <div class="hide" id="infoWindow">
+        <canvas id="pointer" width="520" height="50"></canvas>
+
+        <div id="infoWindowData">
+            <div class="infSection" id="infTop">
+                <span id="title"></span>
+                <svg id="infCloseBtn" class="closeBtn" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+            </div>
+    
+            <div class="infSection" id="infMid">
+                <img id="smallImage" src="libs/img/placeHolder.png" title="Увеличить"></img>
+                <div>
+                    <div id="descr"></div>
+                    <a id="url" href="" title="Wikipedia">Подробнее...</a>
+                </div>
+            </div>
+    
+            <div class="infSection" id="infBtm">
+                <a class="infButton hide" id="detailBtn" href="">Приблизить</a>
+                <div class="infButton hide" id="removeBtn">Убрать</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+2. Создать CSS файл в папке css
+3. Добавить на него ссылку в HTML (2-й тег 'link')
+4. Самостоятельно прописать все стили
+    Пример:
+        main {
+            width: 740px; <--- нужные размеры
+            background-image: url('../libs/PC1.png'); <--- фоновая картинка с нужной частью ПК
+        }
+
+========== Добавление кликабельных элементов ==========
+
+1.  Добавить тег в main по шаблону:
+
+    <div class="device" data-name="[НАЗВАНИЕ]"></div>
+
+2. В javaScript файле в объект 'deviceList' (в самом низу) добавить информацию о детали ПК по шаблону:
+
+DEVICE: { (вместо DEVICE название которое ДОЛЖНО СОВПАДАТЬ с названием из атрибута 'data-name' в HTML)
+    title: 'Деталь', <--- Название детали
+    descr: 'Деталь такая-то, делает то-то', <--- Описание детали
+    url: 'https://ru.wikipedia.org', <--- Ссылка на статью в Интернете о детали,
+    imgSrc: '[ССЫЛКА НА КАРТИНКУ]', <--- Картинка-иллюстрация
+    detail: true/false, <--- Есть ли детальный вид (показывать ли соотв. кнопку)
+    detailedView: '[ССЫЛКА НА HTML ФАЙЛ]', <--- ссылка на приближённый вид детали
+    removable: true/false, <--- Можно ли убрать (показывать ли соотв. кнопку)
+    remove: function() {...} <--- функция, которая будет выполняться при нажатии кнопки 'убрать'
+}
+
+3. Самостоятельно прописать все стили
+    Пример:
+        .device[data-name="motherBoard"] {
+            width: 58%;
+            height: 58%;
+            position: relative;
+            left: 16%;
+            top: 17%;
+        
