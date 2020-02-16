@@ -127,8 +127,8 @@ const
 
         setInfo: function(info) {
             this.title.innerHTML = info.title;
-            // this.image.setAttribute('src', info.img);
-            // bigImage.img.setAttribute('src', info.img);
+            // this.image.setAttribute('src', info.imgSrc);
+            bigImage.img.setAttribute('src', info.imgSrc);
             this.descr.innerHTML = info.descr;
             this.url.setAttribute('href', info.url);
         
@@ -170,7 +170,7 @@ const
 
     bigImage = {
         wrapper: document.getElementById('bgImgWrapper'),
-        img: document.getElementById('bigPicture'),
+        img: document.getElementById('bigImage'),
         closeBtn: document.getElementById('bgImgCloseBtn')
     }
 
@@ -279,7 +279,7 @@ const
             title: 'Материнская плата',
             descr: 'Матери́нская (систе́мная) пла́та — печатная плата, являющаяся основой построения модульного устройства, например — компьютера.',
             url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%BB%D0%B0%D1%82%D0%B0',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/Motherboard_illstr.png',
             detail: true,
             detailedView: 'motherboard.html',
             removable: false
@@ -289,7 +289,7 @@ const
             title: 'Блок питания',
             descr: 'Компьютерный блок питания — вторичный источник электропитания, предназначенный для снабжения узлов компьютера электроэнергией постоянного тока путём преобразования сетевого напряжения до требуемых значений.',
             url: 'https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B9_%D0%B1%D0%BB%D0%BE%D0%BA_%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/Power_supply_illstr.png',
             detail: false,
             removable: false
         },
@@ -309,7 +309,7 @@ const
             title: 'Видеокарта',
             descr: 'Видеока́рта (также видеоада́птер, графический ада́птер, графи́ческая пла́та, графи́ческая ка́рта, графи́ческий ускори́тель) — устройство, преобразующее графический образ, хранящийся как содержимое памяти компьютера (или самого адаптера), в форму, пригодную для дальнейшего вывода на экран монитора.',
             url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B0',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/GPU_illstr.png',
             detail: false,
             removable: false
         },
@@ -318,7 +318,7 @@ const
             title: 'Центральный процессор',
             descr: 'Центра́льный проце́ссор — электронный блок, либо интегральная схема (микропроцессор), исполняющая машинные инструкции (код программ), главная часть аппаратного обеспечения компьютера или программируемого логического контроллера. Иногда называют микропроцессором или просто процессором.',
             url: 'https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D1%80',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/CPU_illstr.png',
             detail: false,
             removable: false 
         },
@@ -342,7 +342,7 @@ const
             title: 'Оперативная память',
             descr: 'Операти́вная па́мять или операти́вное запомина́ющее устро́йство (ОЗУ) — энергозависимая часть системы компьютерной памяти, в которой во время работы компьютера хранится выполняемый машинный код (программы), а также входные, выходные и промежуточные данные, обрабатываемые процессором.',
             url: 'https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/RAM_illstr.png',
             detail: false,
             removable: false
         },
@@ -351,7 +351,7 @@ const
             title: 'Жёсткий диск',
             descr: 'Накопи́тель на жёстких магни́тных ди́сках, или НЖМД, жёсткий диск, винчестер — запоминающее устройство (устройство хранения информации) произвольного доступа, основанное на принципе магнитной записи. Является основным накопителем данных в большинстве компьютеров.',
             url: 'https://ru.wikipedia.org/wiki/%D0%96%D1%91%D1%81%D1%82%D0%BA%D0%B8%D0%B9_%D0%B4%D0%B8%D1%81%D0%BA',
-            imgSrc: '',
+            imgSrc: 'libs/img/Illustrations/HDD_illstr.png',
             detail: false,
             removable: false
         },
