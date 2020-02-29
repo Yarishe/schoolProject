@@ -172,7 +172,9 @@ const
         wrapper: document.getElementById('bgImgWrapper'),
         img: document.getElementById('bigImage'),
         closeBtn: document.getElementById('bgImgCloseBtn')
-    }
+    },
+
+    returnBtn = document.getElementById('returnBtn');
 
 var
     cursorLeft = false;
@@ -255,23 +257,64 @@ infWindow.removeBtn.addEventListener('click', function() {
     deviceList[infWindow.currentDevice].remove();
 })
 
+infWindow.detailBtn.addEventListener('click', function() {
+    var
+        nextScreen = screenList[deviceList[infWindow.currentDevice].detailedView];
+
+    infWindow.main.hide();
+    currentScreen.hide();
+    nextScreen.show();
+
+    if (currentScreen.id = screenList.main) {
+        returnBtn.show();
+    }
+
+    currentScreen = nextScreen;
+})
+
 bigImage.closeBtn.addEventListener('click', function() {
     bigImage.wrapper.hide();
     infWindow.main.show();
 })
 
-//Device info--------------------------------------------
+returnBtn.addEventListener('click', function() {
+    var
+        nextScreen = screenList[currentScreen.dataset.parent];
 
-// DEVICE: {
+    infWindow.main.hide();
+    currentScreen.hide();
+    nextScreen.show();
+
+    if (currentScreen.id = screenList.main) {
+        returnBtn.hide();
+    }
+
+    currentScreen = nextScreen;
+})
+
+//Device and screen info--------------------------------------------
+
+// part: {
 //     title: 'Деталь', | Название детали
 //     descr: 'Деталь такая-то, делает то-то', | Описание детали
 //     url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D1%82%D0%B0%D0%BB%D1%8C', | Ссылка на статью в Интернете о детали,
 //     imgSrc: '', | Картинка-иллюстрация
 //     detail: false, | Есть ли детальный вид (показывать ли соотв. кнопку)
-//     detailedView: 'motherboard.html', | ссылка на приближённый вид детали
+//     detailedView: 'motherboard', | ссылка на приближённый вид детали
 //     removable: false, | Можно ли убрать (показывать ли соотв. кнопку)
 //     remove: function() {...} | функция, которая будет выполняться при нажатии кнопки 'убрать'
 // }
+
+const
+    screenList = {
+        main: 'PC',
+        PC: document.getElementById('PC'),
+        motherBoard: document.getElementById('Motherboard'),
+        dataStorage: document.getElementById('Data_storage')
+    }
+
+var
+    currentScreen = document.getElementById(screenList.main);
 
 const
     deviceList = {
@@ -281,7 +324,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%BB%D0%B0%D1%82%D0%B0',
             imgSrc: 'libs/img/Illustrations/Motherboard_illstr.jpg',
             detail: true,
-            detailedView: 'motherboard.html',
+            detailedView: 'motherBoard',
             removable: false
         },
 
@@ -301,7 +344,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B5%D0%B5_%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE',
             imgSrc: '',
             detail: true,
-            detailedView: 'dataStorage.html',
+            detailedView: 'dataStorage',
             removable: false
         },
 
