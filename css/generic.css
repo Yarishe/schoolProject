@@ -11,20 +11,20 @@ body {
     height: 100vh;
     margin: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 main {
     width: 1000px;
+    margin: auto;
 }
 
-#PC {
+.screen {
     position: relative;
 }
 
 .map {
     position: absolute;
+    z-index: 1;
 }
 
 .mainImage {
@@ -103,6 +103,7 @@ main {
     flex-direction: column;
     position: absolute;
     transform: translate(0px, -3px);
+    z-index: 2;
 }
 
 #pointer {

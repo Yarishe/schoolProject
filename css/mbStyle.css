@@ -1,71 +1,21 @@
-/* Sizes and positions are temporary */
-
-main {
-    flex-direction: column;
-    background-color: #364d36;
+#cooler {
+    width: 33%;
+    position: absolute;
+    left: 51%;
+    top: 5.5%;
+    transition: top 0.5s;
 }
 
-.top-side {
-    width: 80%;
-    height: 60%;
-    align-self: flex-end;
-    display: flex;
-    justify-content: space-around;
-}
-
-.bottom-side {
-    width: 60%;
-    height: 40%;
-    align-self: center;
-    display: flex;
-}
-
-.CPU-wrapper {
-    width: 20%;
-    height: 30%;
-    align-self: flex-end;
-}
-
-.device[data-name="CPU"] {
+#cooler img{
     width: 100%;
-    height: 100%;
-    background-color: #292929;
-    font-size: 25px;
 }
 
-.device[data-name="cooler"] {
-    width: 100%;
-    height: 100%;
-    transform: translateY(-100%);
-    background-color: #9c9898;
-    font-size: 25px;
-    transition: 0.2s all;
+.coolerRemoved {
+    top: -25% !important;
 }
 
-.cooler-removed {
-    transform: translateY(-210%) !important;
-
-    -webkit-box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
-    -moz-box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
-    box-shadow: 19px 30px 57px -25px rgba(0,0,0,0.57);
-}
-
-.device[data-name="RAM"] {
-    width: 20%;
-    height: 75%;
-    align-self: center;
-    background-color: #181717;
-    font-size: 25px;
-}
-
-.device[data-name="RAM"] span {
-    transform: rotate(-90deg);
-}
-
-.device[data-name="GPU"] {
-    width: 70%;
-    height: 15%;
-    background-color: #686666;
-    font-size: 25px;
-    align-self: center;
+#mbWithCooler {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
