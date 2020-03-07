@@ -259,13 +259,16 @@ infWindow.removeBtn.addEventListener('click', function() {
 
 infWindow.detailBtn.addEventListener('click', function() {
     var
-        nextScreen = screenList[deviceList[infWindow.currentDevice].detailedView];
+        next = deviceList[infWindow.currentDevice].detailedView,
+        nextScreen = document.getElementById(next);
+
+    // console.log(nextScreen);
 
     infWindow.main.hide();
     currentScreen.hide();
     nextScreen.show();
 
-    if (currentScreen.id = screenList.main) {
+    if (currentScreen == mainScreen) {
         returnBtn.show();
     }
 
@@ -279,17 +282,18 @@ bigImage.closeBtn.addEventListener('click', function() {
 
 returnBtn.addEventListener('click', function() {
     var
-        nextScreen = screenList[currentScreen.dataset.parent];
+        parent = currentScreen.dataset.parent;
+        parentScreen = document.getElementById(parent);
 
     infWindow.main.hide();
     currentScreen.hide();
-    nextScreen.show();
+    parentScreen.show();
 
-    if (currentScreen.id = screenList.main) {
+    if (parentScreen == mainScreen) {
         returnBtn.hide();
     }
 
-    currentScreen = nextScreen;
+    currentScreen = parentScreen;
 })
 
 //Device and screen info--------------------------------------------
@@ -305,16 +309,10 @@ returnBtn.addEventListener('click', function() {
 //     remove: function() {...} | функция, которая будет выполняться при нажатии кнопки 'убрать'
 // }
 
-const
-    screenList = {
-        main: 'PC',
-        PC: document.getElementById('PC'),
-        motherBoard: document.getElementById('Motherboard'),
-        dataStorage: document.getElementById('Data_storage')
-    }
-
+//вынести в отдельный файл!!!!
 var
-    currentScreen = document.getElementById(screenList.main);
+    mainScreen = document.getElementById('PC'),
+    currentScreen = mainScreen;
 
 const
     deviceList = {
@@ -324,7 +322,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%BB%D0%B0%D1%82%D0%B0',
             imgSrc: 'libs/img/Illustrations/Motherboard_illstr.jpg',
             detail: true,
-            detailedView: 'motherBoard',
+            detailedView: 'Motherboard',
             removable: false
         },
 
@@ -344,7 +342,7 @@ const
             url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B5%D0%B5_%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE',
             imgSrc: '',
             detail: true,
-            detailedView: 'dataStorage',
+            detailedView: 'Data-storage',
             removable: false
         },
 
@@ -353,7 +351,8 @@ const
             descr: 'Видеока́рта (также видеоада́птер, графический ада́птер, графи́ческая пла́та, графи́ческая ка́рта, графи́ческий ускори́тель) — устройство, преобразующее графический образ, хранящийся как содержимое памяти компьютера (или самого адаптера), в форму, пригодную для дальнейшего вывода на экран монитора.',
             url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B0',
             imgSrc: 'libs/img/Illustrations/GPU_illstr.jpg',
-            detail: false,
+            detail: true,
+            detailedView: 'TEST_0',
             removable: false
         },
 
