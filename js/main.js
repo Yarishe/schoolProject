@@ -262,8 +262,6 @@ infWindow.detailBtn.addEventListener('click', function() {
         next = deviceList[infWindow.currentDevice].detailedView,
         nextScreen = document.getElementById(next);
 
-    // console.log(nextScreen);
-
     infWindow.main.hide();
     currentScreen.hide();
     nextScreen.show();
@@ -351,8 +349,7 @@ const
             descr: 'Видеока́рта (также видеоада́птер, графический ада́птер, графи́ческая пла́та, графи́ческая ка́рта, графи́ческий ускори́тель) — устройство, преобразующее графический образ, хранящийся как содержимое памяти компьютера (или самого адаптера), в форму, пригодную для дальнейшего вывода на экран монитора.',
             url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B0',
             imgSrc: 'libs/img/Illustrations/GPU_illstr.jpg',
-            detail: true,
-            detailedView: 'TEST_0',
+            detail: false,
             removable: false
         },
 
@@ -379,7 +376,7 @@ const
                     motherBoard = document.getElementById('mbWithCooler');
 
                 function isNOTRemoved() {
-                    return !cooler.classList.contains('coolerRemoved');;
+                    return !cooler.classList.contains('coolerRemoved');
                 }
 
                 if(isNOTRemoved()) {
