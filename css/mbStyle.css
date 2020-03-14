@@ -4,6 +4,7 @@
     left: 51%;
     top: 5.5%;
     transition: top 0.5s;
+    z-index: 2;
 }
 
 #cooler img{

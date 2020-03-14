@@ -11,6 +11,7 @@ Array.prototype.getClone = function() {
 }
 
 const
+    pageBody = document.getElementsByTagName('body')[0],
     part = document.getElementsByClassName('part'),
     infWindow = {
         main: document.getElementById('infoWindow'),
@@ -213,7 +214,10 @@ function getReadjustedWindowCords(mouseCords) {
         infWindowHeight = infWindow.main.offsetHeight;
         infWindowWidth = infWindow.main.offsetWidth,
         height = document.documentElement.offsetHeight,
-        width = document.documentElement.offsetWidth;
+        width = document.documentElement.offsetWidth,
+        scrollY = pageYOffset;
+    
+    scrollY = Math.round(scrollY);
     
     let 
         cords = mouseCords.getClone();
@@ -232,22 +236,27 @@ function getReadjustedWindowCords(mouseCords) {
         infWindow.pointer.placeAt.bottom();
     }
 
+    cords[1] += scrollY;
+
     return cords;
 }
 
 function getPointerCords(infWindowPos, mouseCords) {
     let
-        cords = [];
+        cords = [0, 0];
 
     cords[0] = Math.abs(infWindowPos[0] - mouseCords[0]);
 
-    if (infWindow.pointer.atTop) {
-        cords[1] = Math.abs(infWindowPos[1] - mouseCords[1]);
+    if (!infWindow.pointer.atTop) {
+        cords[1] = 49;
     }
-    
-        else {
-            cords[1] = 49;
-        }
+
+    //==== incorrect calculations if page is scrolled ====
+    //==== in other cases always returns 0 ====
+    // if (infWindow.pinter.atTop)  {
+    //   cords[1] = Math.abs(infWindowPos[1] - mouseCords[1]);
+    //} 
+
     return cords;
 }
 
@@ -267,6 +276,7 @@ infWindow.closeBtn.addEventListener('click', function() {
 infWindow.image.addEventListener('click', function() {
     infWindow.main.hide();
     bigImage.wrapper.show();
+    pageBody.classList.add('noScrollBar');
 })
 
 infWindow.interactBtn.addEventListener('click', function() {
@@ -292,6 +302,7 @@ infWindow.detailBtn.addEventListener('click', function() {
 bigImage.closeBtn.addEventListener('click', function() {
     bigImage.wrapper.hide();
     infWindow.main.show();
+    pageBody.classList.remove('noScrollBar');
 })
 
 returnBtn.addEventListener('click', function() {
