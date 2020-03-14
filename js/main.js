@@ -3,7 +3,7 @@ Object.prototype.hide = function() {
 }
 
 Object.prototype.show = function() {
-    this.classList.remove('hide');
+    this.classList.remove('hide'); //=-=-=-=-=-=-=-=-=
 }
 
 Array.prototype.getClone = function() {
@@ -12,10 +12,10 @@ Array.prototype.getClone = function() {
 
 const
     pageBody = document.getElementsByTagName('body')[0],
-    device = document.getElementsByClassName('device'),
+    part = document.getElementsByClassName('part'),
     infWindow = {
         main: document.getElementById('infoWindow'),
-        currentDevice: undefined,
+        currentPart: undefined,
         pointer: {
             canv: document.getElementById('pointer'),
             ctx: function() {
@@ -25,7 +25,7 @@ const
             //Is it good idea ??
             placeAt: {
                 top: function() {
-                    infWindow.main.classList.remove('pointerAtBottom');
+                    infWindow.main.classList.remove('pointerAtBottom'); //=-=-=-=-=-=-=-=-=
                     infWindow.pointer.atTop = true;
                 },
 
@@ -121,7 +121,7 @@ const
         },
         closeBtn: document.getElementById('infCloseBtn'),
         detailBtn: document.getElementById('detailBtn'),
-        removeBtn: document.getElementById('removeBtn'),
+        interactBtn: document.getElementById('interactBtn'),
 
         title: document.getElementById('title'),
         image: document.getElementById('smallImage'),
@@ -144,9 +144,9 @@ const
                 this.detailBtn.setAttribute('href', info.detailedView);
             }
         
-            if (info.removable) {
-                this.removeBtn.show();
-                removeDevice = info.remove;
+            if (info.interactable) {
+                this.interactBtn.show();
+                interactpart = info.interact;
             }
         },
 
@@ -154,8 +154,8 @@ const
             this.image.hide();
             this.detailBtn.hide();
             this.detailBtn.removeAttribute('href');
-            this.removeBtn.hide();
-            removeDevice = undefined;
+            this.interactBtn.hide();
+            interact = undefined;
         
             //is it necessary ?
             this.title.innerHTML = 'Нет информации';
@@ -184,11 +184,11 @@ const
 
     returnBtn = document.getElementById('returnBtn');
 
-function genInfWindow(currentDevice, event) {
+function genInfWindow(currentPart, event) {
     infWindow.clearInfo();
     
     let
-        name = currentDevice.dataset.name,
+        name = currentPart.dataset.name,
         mouseCords = [
             event.clientX,
             event.clientY
@@ -196,8 +196,8 @@ function genInfWindow(currentDevice, event) {
         windowPos,
         pointerCords;
 
-    infWindow.currentDevice = name;
-    infWindow.setInfo(deviceList[name]);
+    infWindow.currentPart = name;
+    infWindow.setInfo(partList[name]);
     infWindow.main.show();
     
     windowPos = getReadjustedWindowCords(mouseCords);
@@ -261,10 +261,10 @@ function getPointerCords(infWindowPos, mouseCords) {
 }
 
 
-for (let i = 0; i < device.length; i++) {
-    device[i].addEventListener('click', function(e) {
+for (let i = 0; i < part.length; i++) {
+    part[i].addEventListener('click', function(e) {
         cursorLeft = false;
-        genInfWindow(device[i], e);
+        genInfWindow(part[i], e);
     })
 }
 
@@ -279,13 +279,13 @@ infWindow.image.addEventListener('click', function() {
     pageBody.classList.add('noScrollBar');
 })
 
-infWindow.removeBtn.addEventListener('click', function() {
-    deviceList[infWindow.currentDevice].remove();
+infWindow.interactBtn.addEventListener('click', function() {
+    partList[infWindow.currentPart].interact();
 })
 
 infWindow.detailBtn.addEventListener('click', function() {
     var
-        next = deviceList[infWindow.currentDevice].detailedView,
+        next = partList[infWindow.currentPart].detailedView,
         nextScreen = document.getElementById(next);
 
     infWindow.main.hide();
@@ -321,7 +321,7 @@ returnBtn.addEventListener('click', function() {
     currentScreen = parentScreen;
 })
 
-//Device and screen info--------------------------------------------
+//part and screen info--------------------------------------------
 
 // part: {
 //     title: 'Деталь', | Название детали
@@ -330,8 +330,8 @@ returnBtn.addEventListener('click', function() {
 //     imgSrc: '', | Картинка-иллюстрация
 //     detail: false, | Есть ли детальный вид (показывать ли соотв. кнопку)
 //     detailedView: 'motherboard', | ссылка на приближённый вид детали
-//     removable: false, | Можно ли убрать (показывать ли соотв. кнопку)
-//     remove: function() {...} | функция, которая будет выполняться при нажатии кнопки 'убрать'
+//     interactable: false, | Можно ли подействовать (показывать ли соотв. кнопку)
+//     interact: function() {...} | функция, которая будет выполняться при нажатии кнопки 'действие'
 // }
 
 //вынести в отдельный файл!!!!
@@ -340,7 +340,7 @@ var
     currentScreen = mainScreen;
 
 const
-    deviceList = {
+    partList = {
         motherBoard: {
             title: 'Материнская плата',
             descr: 'Матери́нская (систе́мная) пла́та — печатная плата, являющаяся основой построения модульного устройства, например — компьютера.',
@@ -349,7 +349,7 @@ const
             imgSrc: 'libs/img/Illustrations/Motherboard_illstr.jpg',
             detail: true,
             detailedView: 'Motherboard',
-            removable: false
+            interactable: false
         },
 
         powerSupply: {
@@ -359,7 +359,7 @@ const
             hasImg: true,
             imgSrc: 'libs/img/Illustrations/Power_supply_illstr.jpg',
             detail: false,
-            removable: false
+            interactable: false
         },
 
         //====!!!! ПЕРЕДЕЛАТЬ ТЕКСТ, тут могут стоять не только устр-ва связанные с памятью !!!====
@@ -371,7 +371,7 @@ const
             imgSrc: '',
             detail: true,
             detailedView: 'Data-storage',
-            removable: false
+            interactable: false
         },
 
         GPU: {
@@ -381,7 +381,7 @@ const
             hasImg: true,
             imgSrc: 'libs/img/Illustrations/GPU_illstr.jpg',
             detail: false,
-            removable: false
+            interactable: false
         },
 
         CPU: {
@@ -391,7 +391,7 @@ const
             hasImg: true,
             imgSrc: 'libs/img/Illustrations/CPU_illstr.jpg',
             detail: false,
-            removable: false 
+            interactable: false 
         },
 
         cooler: {
@@ -401,8 +401,8 @@ const
             hasImg: false,
             imgSrc: '',
             detail: false,
-            removable: true,
-            remove: function() {
+            interactable: true,
+            interact: function() {
                 let
                     rCooler = document.getElementById('cooler'),
                     mbCooler = document.getElementById('mbCooler'),
@@ -444,7 +444,7 @@ const
             hasImg: true,
             imgSrc: 'libs/img/Illustrations/RAM_illstr.jpg',
             detail: false,
-            removable: false
+            interactable: false
         },
 
         HDD: {
@@ -454,7 +454,7 @@ const
             hasImg: true,
             imgSrc: 'libs/img/Illustrations/HDD_illstr.jpg',
             detail: false,
-            removable: false
+            interactable: false
         },
 
         drive: {
@@ -464,7 +464,7 @@ const
             hasImg: false,
             imgSrc: '',
             detail: false,
-            removable: false
+            interactable: false
         },
 
         SSD: {
@@ -474,6 +474,6 @@ const
             hasImg: false,
             imgSrc: '',
             detail: false,
-            removable: false
+            interactable: false
         }
     };

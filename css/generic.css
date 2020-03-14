@@ -35,13 +35,13 @@ main {
     width: 100%;
 }
 
-.device {
+.part {
     fill: #ffffff00;
     transition: fill 0.2s;
     cursor: pointer;
 }
 
-.device:hover {
+.part:hover {
     fill: #ffffff44;
 }
 
