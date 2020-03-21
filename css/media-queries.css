@@ -1,18 +1,145 @@
-/* @media screen and (max-width: 1100px) {
-    #bgImgCloseBtn {
-        width: 30px;
-        height: 30px;
+@media screen and (min-width: 1100px) {
+    #pointer {
+        height: 50px;
+    } 
+}
+
+@media screen and (max-width: 1100px) {
+    #pointer {
+        width: 420px;
     }
 
-    #bigImage {
-        width: 70%;
+    .pointerAtBottom #pointer{
+        top: -2px !important
     }
 
     #infoWindowData {
         width: 400px;
+        border: 2px solid black;
     }
 
-    #pointer {
-        width: 420px;
+    #title {
+        font-size: 25px;
     }
-} */
+
+    #smallImage {
+        width: 80px;
+        height: 80px;
+    }
+
+    #descr {
+        font-size: 15px;
+    }
+
+    #url {
+        font-size: 15px;
+    }
+
+    .infButton {
+        width: 120px;
+        height: 20px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #pointer {
+        width: 270px;
+        height: 30px;
+        top: 2px;
+    }
+
+    .pointerAtBottom #pointer{
+        top: -2px !important
+    }
+
+    #infoWindowData {
+        width: 250px;
+        border: 2px solid black;
+    }
+
+    #title {
+        font-size: 15px;
+    }
+
+    #infCloseBtn {
+        width: 15px;
+        height: 15px;
+    }
+
+    #smallImage {
+        width: 60px;
+        height: 60px;
+        border: 1px solid #000;
+    }
+
+    #descr {
+        font-size: 10px;
+    }
+
+    #url {
+        font-size: 10px;
+    }
+
+    .infButton {
+        width: 95px;
+        height: 15px;
+        font-size: 10px;
+        border: 1px solid #006eff;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #pointer {
+        width: 178px;
+        height: 20px;
+        top: 1px;
+    }
+
+    .pointerAtBottom #pointer{
+        top: -1px !important
+    }
+
+    #infoWindowData {
+        width: 170px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    #title {
+        font-size: 10px;
+        border-bottom: 1px solid #000;
+    }
+
+    #infCloseBtn {
+        width: 10px;
+        height: 10px;
+    }
+
+    #infMid {
+        padding: 3px 0;
+    }
+
+    #smallImage {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+    }
+
+    #descr {
+        font-size: 8px;
+    }
+
+    #url {
+        font-size: 8px;
+    }
+
+    .infButton {
+        width: 50px;
+        height: 10px;
+        font-size: 7px;
+        border: 1px solid #006eff;
+        border-radius: 3px;
+    }
+}

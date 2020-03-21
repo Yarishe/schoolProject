@@ -61,11 +61,12 @@ main {
 /* ==== Return button ==== */
 #returnBtn {
     width: 3%;
-    position: absolute;
+    position: fixed;
     top: 1%;
     left: 1%;
     color: #8b8b8b;
     cursor: pointer;
+    z-index: 2;
 }
 
 #returnBtn:hover {
@@ -94,7 +95,7 @@ main {
 }
 
 #bigImage {
-    width: 900px;
+    width: 70%;
     align-self: center;
     border-radius: 5px;
 }

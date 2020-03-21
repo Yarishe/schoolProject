@@ -22,6 +22,7 @@ const
                 return this.canv.getContext('2d');
             },
             atTop: true,
+            borderWidth: 3,
             //Is it good idea ??
             placeAt: {
                 top: function() {
@@ -40,7 +41,7 @@ const
                     height = this.canv.offsetHeight,
                     atTop = this.atTop;
 
-                ctx.lineWidth = 3;
+                ctx.lineWidth = this.borderWidth;
                 ctx.fillStyle = '#fff';
                 if (atTop) {
                     const
@@ -117,6 +118,23 @@ const
                 const
                     ctx = this.ctx();
                 ctx.clearRect(0, 0, 520, 50);
+            },
+
+            adjustToElemSize: function() {
+                function getInfWindowBorderWidth () {
+                    let
+                        elem = document.getElementById('infoWindowData'),
+                        value = getComputedStyle(elem).borderWidth, //this supposed to be in pixels
+                        width = value.substring(0, value.length - 2);
+
+                    width = Math.round(width);
+
+                    return width;
+                }
+
+                this.canv.width = this.canv.offsetWidth;
+                this.canv.height = this.canv.offsetHeight;
+                this.borderWidth = getInfWindowBorderWidth();
             }
         },
         closeBtn: document.getElementById('infCloseBtn'),
@@ -173,7 +191,6 @@ const
                 top = cords[1];
             this.main.setAttribute('style', 'left: ' + left + 'px; top: ' + top + 'px;');
         }
-
     },
 
     bigImage = {
@@ -203,11 +220,11 @@ function genInfWindow(currentDevice, event) {
     windowPos = getReadjustedWindowCords(mouseCords);
     infWindow.setPosition(windowPos);
 
+    infWindow.pointer.adjustToElemSize();
     pointerCords = getPointerCords(windowPos, mouseCords);
     infWindow.pointer.draw(pointerCords);
 }
 
-//rename this
 function getReadjustedWindowCords(mouseCords) {
     const
         margin = 20,
@@ -248,7 +265,9 @@ function getPointerCords(infWindowPos, mouseCords) {
     cords[0] = Math.abs(infWindowPos[0] - mouseCords[0]);
 
     if (!infWindow.pointer.atTop) {
-        cords[1] = 49;
+        let
+            pointerHeight = infWindow.pointer.canv.offsetHeight
+        cords[1] = pointerHeight;
     }
 
     //==== incorrect calculations if page is scrolled ====
@@ -268,6 +287,10 @@ for (let i = 0; i < device.length; i++) {
     })
 }
 
+window.addEventListener('resize', function() {
+    infWindow.main.hide();
+})
+
 infWindow.closeBtn.addEventListener('click', function() {
     infWindow.main.hide();
     infWindow.clearInfo();
@@ -276,6 +299,7 @@ infWindow.closeBtn.addEventListener('click', function() {
 infWindow.image.addEventListener('click', function() {
     infWindow.main.hide();
     bigImage.wrapper.show();
+    returnBtn.hide(); 
     pageBody.classList.add('noScrollBar');
 })
 
@@ -302,6 +326,9 @@ infWindow.detailBtn.addEventListener('click', function() {
 bigImage.closeBtn.addEventListener('click', function() {
     bigImage.wrapper.hide();
     infWindow.main.show();
+    if (currentScreen != mainScreen) {
+        returnBtn.show();  
+    }
     pageBody.classList.remove('noScrollBar');
 })
 
