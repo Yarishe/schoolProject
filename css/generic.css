@@ -36,13 +36,13 @@ main {
 }
 
 .part {
-    fill: #ffffff00;
+    fill: rgba(255, 255, 255, 0);
     transition: fill 0.2s;
     cursor: pointer;
 }
 
 .part:hover {
-    fill: #ffffff44;
+    fill: rgba(255, 255, 255, 0.267);
 }
 
 .closeBtn {
@@ -84,7 +84,7 @@ main {
     position: fixed;
     display: flex;
     justify-content: center;
-    background-color: #000000c9;
+    background-color: rgba(0, 0, 0, 0.788);
     z-index: 2;
 }
 
@@ -111,7 +111,6 @@ main {
 }
 
 #pointer {
-    /* background-color: #0000001a; */
     position: relative;
     top: 3px;
 }
