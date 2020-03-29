@@ -3,7 +3,7 @@ Object.prototype.hide = function() {
 }
 
 Object.prototype.show = function() {
-    this.classList.remove('hide'); //=-=-=-=-=-=-=-=-=
+    this.classList.remove('hide');
 }
 
 Array.prototype.getClone = function() {
@@ -23,10 +23,9 @@ const
             },
             atTop: true,
             borderWidth: 3,
-            //Is it good idea ??
             placeAt: {
                 top: function() {
-                    infWindow.main.classList.remove('pointerAtBottom'); //=-=-=-=-=-=-=-=-=
+                    infWindow.main.classList.remove('pointerAtBottom');
                     infWindow.pointer.atTop = true;
                 },
 
@@ -175,14 +174,13 @@ const
             this.interactBtn.hide();
             interact = undefined;
         
-            //is it necessary ?
             this.title.innerHTML = 'Нет информации';
             // this.image.removeAttribute('src');
             this.descr.innerHTML = 'Нет информации';
             this.url.removeAttribute('href');
         
             this.pointer.clear();
-            this.pointer.placeAt.top(); //==============================================
+            this.pointer.placeAt.top();
         },
 
         setPosition: function(cords) {
@@ -268,20 +266,12 @@ function getPointerCords(infWindowPos, mouseCords) {
             pointerHeight = infWindow.pointer.canv.offsetHeight
         cords[1] = pointerHeight;
     }
-
-    //==== incorrect calculations if page is scrolled ====
-    //==== in other cases always returns 0 ====
-    // if (infWindow.pinter.atTop)  {
-    //   cords[1] = Math.abs(infWindowPos[1] - mouseCords[1]);
-    //} 
-
     return cords;
 }
 
 
 for (let i = 0; i < part.length; i++) {
     part[i].addEventListener('click', function(e) {
-        cursorLeft = false;
         genInfWindow(part[i], e);
     })
 }
@@ -347,7 +337,7 @@ returnBtn.addEventListener('click', function() {
     currentScreen = parentScreen;
 })
 
-//part and screen info--------------------------------------------
+//part info--------------------------------------------
 
 // part: {
 //     title: 'Деталь', | Название детали
@@ -449,8 +439,6 @@ const
                 }
                     else {
                         cooler.classList.remove('coolerRemoved');
-
-                        //I know I should use eventListener instead, but this method seems to be easier in this case
                         setTimeout(function() {
                             rCooler.hide();
                             motherBoard.show();

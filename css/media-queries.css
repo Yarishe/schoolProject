@@ -15,7 +15,7 @@
 
     #infoWindowData {
         width: 400px;
-        border: 2px solid black;
+        border: 2px solid #000;
     }
 
     #title {
@@ -55,7 +55,6 @@
 
     #infoWindowData {
         width: 250px;
-        border: 2px solid black;
     }
 
     #title {
@@ -102,7 +101,7 @@
 
     #infoWindowData {
         width: 170px;
-        border: 1px solid black;
+        border: 1px solid #000;
         border-radius: 5px;
         padding: 3px;
     }
