@@ -124,7 +124,7 @@ const
                 function getInfWindowBorderWidth () {
                     let
                         elem = document.getElementById('infoWindowData'),
-                        value = getComputedStyle(elem).borderWidth, //this supposed to be in pixels
+                        value = getComputedStyle(elem).borderLeftWidth, //this supposed to be in pixels
                         width = value.substring(0, value.length - 2);
 
                     width = Math.round(width);
@@ -216,7 +216,6 @@ function genInfWindow(currentPart, event) {
     infWindow.currentPart = name;
     infWindow.setInfo(partList[name]);
     infWindow.main.show();
-    
     windowPos = getReadjustedWindowCords(mouseCords);
     infWindow.setPosition(windowPos);
 
