@@ -45,36 +45,20 @@ main {
     fill: rgba(255, 255, 255, 0.267);
 }
 
-.closeBtn {
-    color: #8b8b8b;
-    cursor: pointer;
-}
-
-.closeBtn:hover {
-    color: #747474;
-}
-
-.closeBtn:active {
-    color: #636262;
-}
-
 /* ==== Return button ==== */
 #returnBtn {
     width: 3%;
     position: fixed;
     top: 1%;
     left: 1%;
-    color: #8b8b8b;
+    fill: #818181;
     cursor: pointer;
+    transition: fill 0.1s;
     z-index: 2;
 }
 
 #returnBtn:hover {
-    color: #747474; 
-}
-
-#returnBtn:active {
-    color: #636262; 
+    fill: #585858;
 }
 
 /* ==== Big image ==== */
@@ -91,7 +75,15 @@ main {
 #bgImgCloseBtn {
     position: absolute;
     width: 3%;
-    right: 1%;
+    top: 1%;
+    right: 0.5%;
+    fill: #999999;
+    cursor: pointer;
+    transition: fill 0.1s;
+}
+
+#bgImgCloseBtn:hover {
+    fill: #cfcece; 
 }
 
 #bigImage {
@@ -153,6 +145,13 @@ main {
 #infCloseBtn {
     width: 20px;
     height: 20px;
+    fill: #8b8b8b;
+    cursor: pointer;
+    transition: fill 0.1s;
+}
+
+#infCloseBtn:hover {
+    fill: #646464;
 }
 
 #infMid {
