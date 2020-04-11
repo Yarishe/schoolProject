@@ -152,7 +152,7 @@ const
         
             if (info.hasImg) {
                 this.image.show();
-                // this.image.setAttribute('src', info.imgSrc);
+                this.image.setAttribute('src', info.imgSrc);
                 bigImage.img.setAttribute('src', info.imgSrc);
             }
 
@@ -175,7 +175,8 @@ const
             interact = undefined;
         
             this.title.innerHTML = 'Нет информации';
-            // this.image.removeAttribute('src');
+            this.image.removeAttribute('src');
+            bigImage.img.removeAttribute('src');
             this.descr.innerHTML = 'Нет информации';
             this.url.removeAttribute('href');
         
